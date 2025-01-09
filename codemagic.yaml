@@ -4,11 +4,12 @@ workflows:
     environment:
       vars:
         ANDROID_HOME: /opt/android-sdk-linux
-        JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
     scripts:
+      - name: Set Java 8
+        script: export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 && export PATH=$JAVA_HOME/bin:$PATH
       - name: Install dependencies
         script: npm install
       - name: Build APK
-        script: ns build android --release
+        script: export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 && export PATH=$JAVA_HOME/bin:$PATH && ns build android --release
     artifacts:
       - platforms/android/app/build/outputs/**/*.apk

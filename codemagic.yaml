@@ -1,0 +1,21 @@
+workflows:
+  build_android:
+    name: Build Android APK
+    environment:
+      vars:
+        ANDROID_HOME: /opt/android-sdk-linux
+        JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
+      android:
+        build_tools_version: "33.0.0"
+        compile_sdk_version: "33"
+      cache:
+        cache_paths:
+          - ~/.npm
+          - ~/.gradle
+    scripts:
+      - name: Install dependencies
+        script: npm install
+      - name: Build APK
+        script: ns build android --release
+    artifacts:
+      - platforms/android/app/build/outputs/**/*.apk
